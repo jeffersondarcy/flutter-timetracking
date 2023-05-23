@@ -1,6 +1,5 @@
 import 'package:uuid/uuid.dart';
-
-export 'timer.dart' show Timers;
+export 'timer.dart' show Timers, toggleTimer, getTimersTotalTimes;
 
 class Period {
   int startTime;
@@ -30,6 +29,14 @@ void stopTimer(Timer timer) {
   }
 }
 
+void toggleTimer(Timer timer) {
+  if (timer.isRunning) {
+    stopTimer(timer);
+  } else {
+    startTimer(timer);
+  }
+}
+
 int calculateTotalTime(Timer timer) {
   if (timer.isRunning) {
     return timer.totalTimeAccumulated + DateTime.now().millisecondsSinceEpoch - timer.periods.last.startTime;
@@ -50,4 +57,13 @@ class Timers {
     timers.remove(id);
   }
 }
+
+Map<String, int> getTimersTotalTimes(Timers timers) {
+  Map<String, int> totalTimes = {};
+  timers.timers.forEach((id, timer) {
+    totalTimes[id] = calculateTotalTime(timer);
+  });
+  return totalTimes;
+}
+
 

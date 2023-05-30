@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'timers_list.dart';
-import '../timer.dart';
+import '../time_tracking_state.dart';
 
 class TimerPage extends StatefulWidget {
   @override

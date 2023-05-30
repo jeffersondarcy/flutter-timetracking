@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'dart:async' as async;
-import '../timer.dart';
+import '../time_tracking_state.dart';
 import '../utils.dart';
 
 export 'timers_list.dart' show TimersList;
@@ -36,7 +36,7 @@ class _TimersListState extends State<TimersList> {
       itemCount: widget.timers.timers.length,
       itemBuilder: (context, index) {
         String id = widget.timers.timers.keys.elementAt(index);
-        Timer timer = widget.timers.timers[id]!;
+        TimeTracker timer = widget.timers.timers[id]!;
         return CupertinoListTile(
           title: Text("Timer ${index + 1}"),
           subtitle: Text("Total Time: ${millisecondsToFormattedTime(_timerTotalTimes[id] ?? 0)}"),

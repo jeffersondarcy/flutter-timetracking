@@ -6,10 +6,10 @@ class TimeTracker {
   final String id;
   String name;
   int? runningStartTime;
-  int totalTimeAccomulated;
+  int totalTimeAccumulated;
   bool get isRunning => runningStartTime != null;
 
-  TimeTracker({String? id, this.name = '', this.totalTimeAccomulated = 0})
+  TimeTracker({String? id, this.name = '', this.totalTimeAccumulated = 0})
       : this.id = id ?? Uuid().v4();
 }
 
@@ -28,7 +28,7 @@ class TimeTrackerNotifier extends Notifier<Map<String, TimeTracker>> {
     state = {...state}..remove(id);
   }
 
-  void toggleTimer(String id) {
+  void toggleTimeTracker(String id) {
     final tracker = state[id]!;
     if (tracker.isRunning) {
       stopTimer(id);
@@ -56,7 +56,7 @@ class TimeTrackerNotifier extends Notifier<Map<String, TimeTracker>> {
       endTime: endTime,
     ));
 
-      final totalTimeAccomulated = tracker.totalTimeAccomulated + DateTime.now().millisecondsSinceEpoch - tracker.runningStartTime!;
+      final totalTimeAccomulated = tracker.totalTimeAccumulated + DateTime.now().millisecondsSinceEpoch - tracker.runningStartTime!;
       tracker.runningStartTime = null;
 
       state = {
@@ -64,7 +64,7 @@ class TimeTrackerNotifier extends Notifier<Map<String, TimeTracker>> {
         id:TimeTracker(
           id: id,
           name: tracker.name,
-          totalTimeAccomulated: totalTimeAccomulated,
+          totalTimeAccumulated: totalTimeAccomulated,
         )
       };
     }

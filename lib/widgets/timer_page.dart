@@ -1,17 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'timers_list.dart';
-import '../time_tracking_state.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/time_trackers_provider.dart';
+import 'time_trackers.dart';
 
-class TimerPage extends StatefulWidget {
-  @override
-  _TimerPageState createState() => _TimerPageState();
-}
-
-class _TimerPageState extends State<TimerPage> {
-  final Timers _timers = Timers();
+class TimerPage extends ConsumerWidget {
+  TimerPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    //final trackers = ref.watch(timeTrackersProvider);
+    //final toggle = ref.read(timeTrackersProvider.notifier).toggleTimeTracker;
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text('Timers'),
@@ -20,15 +18,11 @@ class _TimerPageState extends State<TimerPage> {
         child: Column(
           children: <Widget>[
             Expanded(
-              child: TimersList(_timers),
+              child: TimeTrackers(timeTrackers: ref.watch(timeTrackersProvider), toggleTimeTracker: ref.read(timeTrackersProvider.notifier).toggleTimeTracker),
             ),
             CupertinoButton(
               child: Text('Add Timer'),
-              onPressed: () {
-                setState(() {
-                  _timers.addTimer();
-                });
-              },
+              onPressed: ref.read(timeTrackersProvider.notifier).addNewTracker,
             ),
           ],
         ),
